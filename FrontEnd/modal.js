@@ -1,3 +1,16 @@
+function handleCategoryClick(event) {
+    // Retirer la classe 'selected' de tous les éléments de filtre
+    categoryElements.forEach(element => {
+      element.classList.remove('selected');
+    });
+
+    // Ajouter la classe 'selected' à l'élément de catégorie cliqué
+    const clickedElement = event.target;
+    clickedElement.classList.add('selected');
+
+    updateGallery();
+  }
+
 document.addEventListener("DOMContentLoaded", function () {
     const galleryElement = document.getElementById('Container_gallery');
     const filterForm = document.getElementById('filterForm');
@@ -6,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById('myModal');
     const closeButton = document.querySelector('.close');
     let tokenValue = localStorage.getItem('token');
+
  
 
     // Fetch and populate the main gallery
@@ -70,46 +84,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load the main gallery when the page loads
     loadMainGallery();
 
-    function handleCategoryClick(event) {
-        // Your existing handleCategoryClick function
-        // ...
-    }
+
 
     // Add an event listener to the "Modifier" button to show the modal
     modifierButton.addEventListener('click', function () {
         modal.style.display = 'block';
+        const addForm = document.getElementById('addPhotoForm');
         loadMiniGallery(); // Load the mini gallery when the modal is shown
-        addForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-    
-            const photoInput = document.getElementById('photo');
-            const titleInput = document.getElementById('title');
-            const categoryInput = document.getElementById('category');
-    
-            const photo = photoInput.files[0];
-            const title = titleInput.value;
-            const category = parseInt(categoryInput.value); // Convertir la catégorie en entier
-    
-            const formData = new FormData();
-            formData.append('image', photo);
-            formData.append('title', title);
-            formData.append('category', category);
-    
-            fetch('http://localhost:5678/api/works', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Une fois l'ajout réussi, chargez à nouveau la galerie pour la mettre à jour
-                loadMiniGallery();
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        });
-        document.getElementById("add-picture-button").addEventListener("click", showAddPhotoForm);
+
     });
+       
 
 
     // Add an event listener to the close button to hide the modal
@@ -118,28 +102,29 @@ document.addEventListener("DOMContentLoaded", function () {
         loadMainGallery(); // Load the main gallery when the modal is closed
     });
 
+/*
+    const closeArrow = document.querySelector('.close_arrow');
 
-    const closeFormButton = document.querySelector('.Container_form_picture .close_modal');
+    closeArrow.addEventListener('click', () => {
+        containerFormPicture.style.display = 'none';
+        containerGallery.style.display = 'block'; // ou 'flex', en fonction de votre mise en page
+    });
+*/
+    const modalFonctionSpans = document.querySelectorAll('.modal_fonction');
+ 
+    modalFonctionSpans.forEach(span => {
+        span.addEventListener('click', () => {
+            containerFormPicture.style.display = 'block';
+            containerGallery.style.display = 'none'; // or 'flex', depending on your layout
+        });
+    });
+    
+    const addPictureButton = document.getElementById('add-picture-button');
 
-// Ajoutez un gestionnaire d'événements au bouton de fermeture dans la deuxième partie du modal
-closeFormButton.addEventListener('click', function () {
-    // Masquez le modal en changeant son style de display à "none"
-    modal.style.display = 'none';
-});
-
-// Sélectionnez le bouton "Ajouter une photo"
-const ajout_photo = document.querySelector('#add-picture-button .modal_fonction');
-
-// Sélectionnez les éléments des deux parties du modal
-const containerGallery = document.getElementById('Container_gallery');
-const containerFormPicture = document.getElementById('Container_form_picture');
-
-// Ajoutez un gestionnaire d'événements au bouton "Ajouter une photo"
-ajout_photo.addEventListener('click', function () {
-    // Masquez la première partie et affichez la deuxième partie du modal
-    containerGallery.style.display = 'none';
-    containerFormPicture.style.display = 'block';
-});
+    addPictureButton.addEventListener('click', () => {
+        containerFormPicture.style.display = 'block';
+        containerGallery.style.display = 'none'; // ou 'flex', en fonction de votre mise en page
+    });
 
     // Add event listeners to filter elements (if needed)
     const categoryElements = filterForm.querySelectorAll('h2');
@@ -148,7 +133,7 @@ ajout_photo.addEventListener('click', function () {
     });
 
 
-
+    
     function showGallery() {
         document.getElementById("Container_form_picture").style.display = "none";
         galleryElement.style.display = "block";
@@ -156,7 +141,6 @@ ajout_photo.addEventListener('click', function () {
     }
     document.getElementById("nav-button").addEventListener("click", showGallery);
 
-    const addForm = document.getElementById('addPhotoForm');
     const addPhotoButton = document.getElementById('add-picture-button');
 
     // Gérer l'ouverture/fermeture du modal
@@ -172,5 +156,97 @@ ajout_photo.addEventListener('click', function () {
     loadMiniGallery();
 });
 
+// navigation
+
+document.addEventListener("DOMContentLoaded", function() {
+    const modalFonctionSpans = document.querySelectorAll('.modal_fonction');
+    const containerFormPicture = document.getElementById('Container_form_picture');
+    const containerGallery = document.getElementById('Container_gallery');
+    const Modal = document.getElementById('myModal');
+    navForm = document.querySelectorAll('.close');
 
 
+    modalFonctionSpans.forEach(span => {
+        span.addEventListener('click', () => {
+            containerFormPicture.style.display = 'block';
+            containerGallery.style.display = 'none'; // or 'flex', depending on your layout
+        });
+    });
+
+    navForm.forEach(img => {
+        img.addEventListener('click', () => {
+            containerFormPicture.style.display = 'none';
+            containerGallery.style.display = 'block'; // or 'flex', depending on your layout
+        });
+    });
+
+    // Close modal functionality
+    const closeModalButtons = document.querySelectorAll('.close_modal');
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            Modal.style.display = 'none'; 
+        });
+    });
+});
+
+
+// formulaire ajout photo
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const addForm = document.getElementById('addPhotoForm');
+
+    addForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const photoInput = document.getElementById('photo');
+        const titleInput = document.getElementById('title');
+        const categoryInput = document.getElementById('category');
+
+
+        const photo = photoInput.files[0];
+        const title = titleInput.value;
+        let category=0
+        if (categoryInput.value=='objets') {
+            category=1
+        }
+        if (categoryInput.value=='appartements') {
+            category=2
+        }
+        if (categoryInput.value=='hotels-restaurants') {
+            category=3
+        }
+        console.log(categoryInput.value)    
+        console.log(category)    
+            // Vous n'avez pas besoin de convertir ici
+
+        const formData = new FormData();
+        formData.append('image', photo);
+        formData.append('title', title);
+        formData.append('category', category);
+    
+        console.log(localStorage.getItem('token'))
+        console.log('postework')
+        fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log(`Image poster`);
+                // Mettre à jour la galerie après la suppression réussie
+                loadMiniGallery();
+            } else {
+                console.error(`Failed to post`);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    });
+
+    // Autres parties de votre code...
+});

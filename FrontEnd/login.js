@@ -11,6 +11,7 @@ loginForm.addEventListener('submit', function(event) {
     const passwordInput = document.getElementById('password');
     const password = passwordInput.value;
 
+    
     // Envoyez la requête d'authentification
     fetch('http://localhost:5678/api/users/login', {
         method: 'POST',
@@ -27,44 +28,22 @@ loginForm.addEventListener('submit', function(event) {
         const token = data.token; // Obtenez le jeton d'authentification
         console.log('Authentification réussie !', token);
         
-        const redirectUrl = `index.html?token=${token}`;
-        localStorage.setItem('token',token)
-        console.log(localStorage.getItem('token'))
-    
         // Redirigez l'utilisateur vers index.html avec le token dans l'URL
+        const redirectUrl = `index.html?token=${token}`;
+        localStorage.setItem('token', token);
         window.location.href = redirectUrl;
+
     })
     .catch(error => {
         console.error('Erreur d\'authentification :', error);
     });
 });
 
-// Dans le fichier "index.html"
 
-// Extrait le token de l'URL
-const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get('token');
-
-// Appelle la fonction deletework avec le token
-//deletework(workId, token);
-
-/*function deletework(workId, token) {
-    fetch(`http://localhost:5678/api/works/${workId}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log(`Work with ID ${workId} has been deleted.`);
-            // Mettre à jour la galerie après la suppression réussie
-            loadMiniGallery();
-        } else {
-            console.error(`Failed to delete work with ID ${workId}.`);
-        }
-    })
-    .catch(error => {
-        console.error(error);
-    });
-}*/
+function logout() {
+  // Supprimer le token du local storage
+  localStorage.removeItem('token');
+  
+  // Rediriger l'utilisateur vers la page de connexion (ou une autre page appropriée)
+  window.location.href = 'login.html'; // Remplacez par l'URL de votre page de connexion
+}

@@ -9,66 +9,76 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/23ffb52e91.js" crossorigin="anonymous"></script>
 	
-
 </head>
 <body>
-<header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li><a href="./login.html">login</a></li>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
-</header>
-<main>
-	<section id="introduction">
-		<figure>
-		  <img src="./assets/images/sophie-bluel.png" alt="">
-		</figure>
-		<article>
-		  <h2>Designer d'espace</h2>
-		  <p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
-		  <p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-		  <p>En cas de besoin, une équipe pluridisciplinaire peut être constituée : architecte DPLG, décorateur(trice)</p>
-		</article>
-	  </section>
-	<!-- Modal -->
-	<div class="modifier-button" id="modifier-button">
-		<span class="icon">&#x270E;</span> Modifier
-	</div>
-	<section id="portfolio">
-		<h2>Mes Projets</h2>
-		<div id="filterForm">
-			<h2 class="selected" data-category="tous">Tous</h2>
-			<h2 data-category="objets">Objets</h2>
-			<h2 data-category="appartements">Appartements</h2>
-			<h2 data-category="hotels-restaurants">Hôtels et Restaurants</h2>
+	<header>
+		<div id="editor"><div class="container_change"><i class="fas fa-edit"></i><p class="size">Mode éditon</p><div class="change"><p class="text_edition">publier les changements</p></div></div></div>
+			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+			<nav>
+				<ul>
+					<li>projets</li>
+					<li>contact</li>
+					<li><a href="./login.html">login</a></li>
+					<li id="logout">logout</li>
+					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+				</ul>
+			</nav>
 		</div>
-		<div class="gallery" id="gallery"></div>
-	</section>
-	<!-- Modal -->
-	<div id="myModal" class="modal">
-		<div class="modal-content">
-			<div class="Container_gallery" id="Container_gallery">
-				<div class="close">
-					<span class="close_modal">&times;</span>
-				</div>
-				<h2>Galerie photo</h2>
-				<div id="mini_gallery"></div>
-				<div id="add-picture-button">
-					<span class="modal_fonction">Ajouter une photo</span>
-				</div>
+	</header>
+	<main>
+		<section id="introduction">
+			<figure>
+				<img src="./assets/images/sophie-bluel.png" alt="">
+			</figure>
+			<article>
+				<h2>Designer d'espace</h2>
+				<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+				<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+				<p>En cas de besoin, une équipe pluridisciplinaire peut être constituée : architecte DPLG, décorateur(trice)</p>
+			</article>
+		</section>
+		<!-- Modal -->
+		<div class="modifier-button" id="modifier-button">
+			<span class="icon">&#x270E;</span> Modifier
+		</div>
+		<section id="portfolio">
+			<h2>Mes Projets</h2>
+			<div id="filterForm">
+				<h2 class="selected" data-category="tous">Tous</h2>
+				<h2 data-category="objets">Objets</h2>
+				<h2 data-category="appartements">Appartements</h2>
+				<h2 data-category="hotels-restaurants">Hôtels et Restaurants</h2>
 			</div>
-			<div class="Container_form_picture" id="Container_form_picture">
-				<div class="nav nav-modal" id="nav-button">
+			<div class="gallery" id="gallery"></div>
+		</section>
+		<!-- Modal -->
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<div class="Container_gallery" id="Container_gallery">
 					<div class="close">
-						<img src="./assets/icons/arrow-left.svg">
-						<h2>Ajout photo</h2>
 						<span class="close_modal">&times;</span>
+					</div>
+					<h2>Galerie photo</h2>
+					<div id="mini_gallery"></div>
+					<div id="add-picture-button">
+						<span class="modal_fonction">Ajouter une photo</span>
+					</div>
+				</div>
+				<div class="Container_form_picture" id="Container_form_picture">
+					<div class="nav nav-modal" id="nav-button">
+						<div class="nav_bar">
+							<div class="close">
+								<img alt="menu de navigation" id="nav" src="./assets/icons/arrow-left.svg">
+							</div>
+							<div>
+								<h2>Ajout photo</h2>
+							</div>
+							<div>
+								<span class="close_modal">&times;</span>
+							</div>
+						</div>
 					</div>
 					<form id="addPhotoForm">
 						<div>
@@ -115,13 +125,15 @@
 	</section>
 </main>
 <footer>
+	<script src="modal.js"></script>
+	<script src="script.js"></script>
 	<nav>
 		<ul>
 			<li>Mentions Légales</li>
 		</ul>
 	</nav>
 </footer>
+
 </body>
-<script src="script.js"></script>
-<script src="modal.js"></script>
+
 </html>
