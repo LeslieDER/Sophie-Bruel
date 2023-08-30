@@ -128,7 +128,7 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
+li:hover , li a:hover {
 	color: #B1663C;
 }
 #introduction {
@@ -367,4 +367,9 @@ font-size: 16px;
 
 .size   {
 font-size: 16px;
+}
+
+.login_index {
+text-decoration: none;
+color: black;
 }
